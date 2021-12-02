@@ -1,9 +1,10 @@
 package application;
 
-import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
+
 import model.entities.Reservation;
 
 public class Program {
@@ -17,7 +18,7 @@ public class Program {
         int number = sc.nextInt();
         System.out.print("Check-in date (dd/MM/yyyy): ");
         Date checkIn = sdf.parse(sc.next());
-        System.out.print("Check-Out date (dd/MM/yyyy): ");
+        System.out.print("Check-out date (dd/MM/yyyy): ");
         Date checkOut = sdf.parse(sc.next());
         
        if (!checkOut.after(checkIn)) {
@@ -32,22 +33,17 @@ public class Program {
     	   System.out.print("Check-in date (dd/MM/yyyy): ");
     	   checkIn = sdf.parse(sc.next());
     	   System.out.print("Check-out date (dd/MM/yyyy): ");
-    	   checkOut = sdf.parse(sc.next());
-    	   
-    	  Date now = new Date();
-    	  if (checkIn.before(now) || checkOut.before(now)) {
-    		  System.out.println("Error in reservation dates for update must be future dates");
-    	  }
-    	  else if (!checkOut.after(checkIn)) {
-    		  System.out.println("Error in reservation: Check-out date must be after check-in date");
-    	  }       
-    	  else { 
-		reservation.updateDates(checkIn, checkOut);
-    	   System.out.println("Reservation: " + reservation); 
-    	   
-       }
-   }
-          
+    	   checkOut = sdf.parse(sc.next());    	   
+     
+    	   	String error = reservation.updateDates(checkIn, checkOut);
+    	   	if (error != null) {
+    	   		System.out.println("Error in reservation: " + error); 	   
+    	   	}
+    	   	else  { 
+    	   		System.out.println("Reservation: " + reservation);
+    	   	}
+       }   
+    	   	
         sc.close();   
 	}
 }   
